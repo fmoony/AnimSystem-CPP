@@ -1,0 +1,996 @@
+[
+  {
+    "name": ".continue",
+    "type": "directory",
+    "children": [
+      {
+        "name": "agents",
+        "type": "directory",
+        "children": [
+          {
+            "name": "new-config.yaml",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "rules",
+        "type": "directory",
+        "children": [
+          {
+            "name": "rungame-project-architecture-summary.md",
+            "type": "file"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": ".gitattributes",
+    "type": "file"
+  },
+  {
+    "name": ".github",
+    "type": "directory",
+    "children": [
+      {
+        "name": "workflows",
+        "type": "directory",
+        "children": []
+      }
+    ]
+  },
+  {
+    "name": ".gitignore",
+    "type": "file"
+  },
+  {
+    "name": ".reasonix",
+    "type": "directory",
+    "children": [
+      {
+        "name": "skills",
+        "type": "directory",
+        "children": [
+          {
+            "name": "commit-msg.md",
+            "type": "file"
+          },
+          {
+            "name": "find.md",
+            "type": "file"
+          },
+          {
+            "name": "pre-commit-check.md",
+            "type": "file"
+          },
+          {
+            "name": "skill-finder.md",
+            "type": "file"
+          },
+          {
+            "name": "superpowers.md",
+            "type": "file"
+          },
+          {
+            "name": "trace-delegate.md",
+            "type": "file"
+          },
+          {
+            "name": "ue-conventions.md",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "truncated-results",
+        "type": "directory",
+        "children": [
+          {
+            "name": "1779887550168-3317392f-run_command.txt",
+            "type": "file"
+          },
+          {
+            "name": "1780143648923-9894e8f0-run_command.txt",
+            "type": "file"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": ".vs",
+    "type": "directory",
+    "children": [
+      {
+        "name": "ProjectEvaluation",
+        "type": "directory",
+        "children": [
+          {
+            "name": "rungame.metadata.v9.bin",
+            "type": "file"
+          },
+          {
+            "name": "rungame.projects.v9.bin",
+            "type": "file"
+          },
+          {
+            "name": "rungame.strings.v9.bin",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "RunGame",
+        "type": "directory",
+        "children": [
+          {
+            "name": "BlueprintCache",
+            "type": "directory",
+            "children": [
+              {
+                "name": "RunGame.json",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "copilot-chat",
+            "type": "directory",
+            "children": [
+              {
+                "name": "d0bbb626",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "sessions",
+                    "type": "directory",
+                    "children": [
+                      {
+                        "name": "21338dda-5fe8-4ae4-8624-3d691af6eeab",
+                        "type": "file"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "CopilotIndices",
+            "type": "directory",
+            "children": [
+              {
+                "name": "17.14.878.3237",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "CodeChunks.db",
+                    "type": "file"
+                  },
+                  {
+                    "name": "SemanticSymbols.db",
+                    "type": "file"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "DesignTimeBuild",
+            "type": "directory",
+            "children": [
+              {
+                "name": ".dtbcache.v2",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "FileContentIndex",
+            "type": "directory",
+            "children": [
+              {
+                "name": "04965bd3-8ae9-4872-862d-5d7f7381e92c.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "1190eb51-822e-4b50-81a1-7fe115f09c03.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "125bfebf-6e80-4670-97a5-f467fde893fb.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "1c51fda0-7d1c-40a3-9195-6c71fffd1a03.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "21ad79c6-37c9-4cfc-b01e-c0a7b823ea95.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "3f56e6c2-9a03-421d-8d65-5b532f479f38.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "60a9193f-7d75-4ae1-90a3-3ee1f2f8d10b.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "615337a9-8046-4c63-b8b5-1e2c9573606d.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "63462cb4-bc21-436d-b435-31fe86652c9c.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "675ce5aa-03f0-4b54-b19d-ce5354eb731f.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "68ff13f2-46a0-422e-80d5-f684d846fd2c.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "76c1dcfa-e670-44a4-9037-57be5f790ae2.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "8659721b-49e0-4564-a621-d7824439ad58.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "89d4b42d-e068-4a8e-bb8c-c91974977d53.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "91d89974-dc59-46cd-81d6-396061aea17b.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "b9b2a689-d9ab-4c4a-ba53-6d946144edad.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "b9f3170e-6430-4b1d-a8b6-10831967e0c6.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "c171d3f1-b331-4a33-ba45-4fde0c1c0afd.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "d14c790e-8bb0-480c-860e-3b29c1583019.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "d67ce4fb-b972-4a17-9216-343e202a9d55.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "db4f5b5e-aa72-4915-a661-e7f4ca0e1d00.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "ddb26176-4fcf-428d-8514-d197099ec88e.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "ec40cdc2-bd31-4de7-9794-b3be41a057a9.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "ed7c2124-9e53-41b5-ac7c-10647072a671.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "f04298ea-da7f-434b-ab53-8be65e31ec56.vsidx",
+                "type": "file"
+              },
+              {
+                "name": "fbc6719a-a45e-4d75-a972-9a843962cab9.vsidx",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "v17",
+            "type": "directory",
+            "children": [
+              {
+                "name": ".futdcache.v2",
+                "type": "file"
+              },
+              {
+                "name": ".suo",
+                "type": "file"
+              },
+              {
+                "name": "Browse.VC.db",
+                "type": "file"
+              },
+              {
+                "name": "DocumentLayout.backup.json",
+                "type": "file"
+              },
+              {
+                "name": "DocumentLayout.json",
+                "type": "file"
+              },
+              {
+                "name": "fileList.bin",
+                "type": "file"
+              },
+              {
+                "name": "ipch",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "a7632f0cc7055229.ipch",
+                    "type": "file"
+                  },
+                  {
+                    "name": "AutoPCH",
+                    "type": "directory",
+                    "children": [
+                      {
+                        "name": "7cf90a4a8160b592",
+                        "type": "directory",
+                        "children": []
+                      },
+                      {
+                        "name": "8c7cc88a40c2a5a9",
+                        "type": "directory",
+                        "children": []
+                      },
+                      {
+                        "name": "92c734a352d229cc",
+                        "type": "directory",
+                        "children": []
+                      },
+                      {
+                        "name": "f7ac10d9216ea7c5",
+                        "type": "directory",
+                        "children": []
+                      },
+                      {
+                        "name": "f8a2ea7fa9318bc9",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "PATHFOLLOWINGCOMPONENT.ipch",
+                            "type": "file"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "b57a844a5d9a2918.ipch",
+                    "type": "file"
+                  },
+                  {
+                    "name": "c5308072fd0bbe38.ipch",
+                    "type": "file"
+                  }
+                ]
+              },
+              {
+                "name": "Solution.VC.db",
+                "type": "file"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": ".vscode",
+    "type": "directory",
+    "children": [
+      {
+        "name": "extensions.json",
+        "type": "file"
+      }
+    ]
+  },
+  {
+    "name": ".vsconfig",
+    "type": "file"
+  },
+  {
+    "name": "CLAUDE.md",
+    "type": "file"
+  },
+  {
+    "name": "CODING_STYLE.md",
+    "type": "file"
+  },
+  {
+    "name": "Config",
+    "type": "directory",
+    "children": [
+      {
+        "name": "DefaultEditor.ini",
+        "type": "file"
+      },
+      {
+        "name": "DefaultEditorPerProjectUserSettings.ini",
+        "type": "file"
+      },
+      {
+        "name": "DefaultEngine.ini",
+        "type": "file"
+      },
+      {
+        "name": "DefaultGame.ini",
+        "type": "file"
+      },
+      {
+        "name": "DefaultGameplayTags.ini",
+        "type": "file"
+      },
+      {
+        "name": "DefaultInput.ini",
+        "type": "file"
+      }
+    ]
+  },
+  {
+    "name": "Content",
+    "type": "directory",
+    "children": [
+      {
+        "name": "Characters",
+        "type": "directory",
+        "children": [
+          {
+            "name": "Mannequins",
+            "type": "directory",
+            "children": [
+              {
+                "name": "Anims",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "Death",
+                    "type": "directory",
+                    "children": [
+                      {
+                        "name": "MM_Death_Back_01.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Death_Front_01.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Death_Front_02.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Death_Front_03.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Death_Left_01.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Death_Right_01.uasset",
+                        "type": "file"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Pistol",
+                    "type": "directory",
+                    "children": [
+                      {
+                        "name": "Aim",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "AO_Pistol.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Idle_ADS1.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Idle_ADS_AO_CD.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Idle_ADS_AO_CU.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Jog",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MF_Pistol_Jog_Bwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Jog_Bwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Jog_Bwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Jog_Fwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Jog_Fwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Jog_Fwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Jog_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Jog_Right.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Jump",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MM_Pistol_Jump_Fall_Loop.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Pistol_Jump_RecoveryAdditive.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Pistol_Jump_Start.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MF_Pistol_Idle_ADS.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Pistol_DryFire.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Pistol_Equip.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Pistol_Fire.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Pistol_Fire_Montage.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Pistol_Reload.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "Walk",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MF_Pistol_Walk_Bwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Walk_Bwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Walk_Bwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Walk_Fwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Walk_Fwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Walk_Fwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Walk_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Pistol_Walk_Right.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Rifle",
+                    "type": "directory",
+                    "children": [
+                      {
+                        "name": "AIM",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "AO_Rifle.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Idle_ADS_AO_CC.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Idle_ADS_AO_CD.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Idle_ADS_AO_CU.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "HitReact",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MM_HitReact_Back_Med_01.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_HitReact_Front_Hvy_01.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_HitReact_Front_Lgt_01.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_HitReact_Front_Lgt_02.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_HitReact_Front_Lgt_03.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_HitReact_Front_Lgt_04.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_HitReact_Front_Med_01.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_HitReact_Front_Med_02.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Jog",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MF_Rifle_Jog_Bwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Jog_Bwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Jog_Bwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Jog_Fwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Jog_Fwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Jog_Fwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Jog_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Jog_Right.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Jump",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MM_Rifle_Jump_Apex.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Jump_Fall_Land.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Jump_Fall_Loop.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Jump_RecoveryAdditive.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Jump_Start.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Rifle_Jump_Start_Loop.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "MF_Rifle_Idle_ADS.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Rifle_DryFire.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Rifle_Equip.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Rifle_Fire.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "MM_Rifle_Reload.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "Walk",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MF_Rifle_Walk_Bwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Walk_Bwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Walk_Bwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Walk_Fwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Walk_Fwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Walk_Fwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Walk_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Rifle_Walk_Right.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Unarmed",
+                    "type": "directory",
+                    "children": [
+                      {
+                        "name": "ABP_RunGame.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "ABP_Unarmed.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "Attack",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MM_Attack_01.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Attack_02.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_Attack_03.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MM_ChargedAttack.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "BS_Idle_Walk_Run.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "FallFlat",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "AM_FallFlat.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "FallFlat.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "FallFlat_Anim_root_Armature_mixamo_com_Layer0.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "FallFlat_Anim_root_Armature_mixamo_com_Layer0_002.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "FallFlat_Anim_root_Armature_mixamo_com_Layer0_003.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "FallFlat_Skeleton.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "IK_FallFlat.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "RTG_FallFlat.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "IK_Unarmed.uasset",
+                        "type": "file"
+                      },
+                      {
+                        "name": "Jog",
+                        "type": "directory",
+                        "children": [
+                          {
+                            "name": "MF_Unarmed_Jog_Bwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Unarmed_Jog_Bwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Unarmed_Jog_Bwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Unarmed_Jog_Fwd.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Unarmed_Jog_Fwd_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Unarmed_Jog_Fwd_Right.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Unarmed_Jog_Left.uasset",
+                            "type": "file"
+                          },
+                          {
+                            "name": "MF_Unarmed_Jog_Right.uasset",
+                            "type": "file"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "JoggingStumble",
+                        "type": "directory",
+                        "children": [
+             
+
+[…truncated 265060 chars — raise BridgeOptions.maxResultChars, or call the tool with a narrower scope (filter, head, pagination)…]
+
+.cpp",
+                "type": "file"
+              },
+              {
+                "name": "RunGameFloorSubsystem.h",
+                "type": "file"
+              },
+              {
+                "name": "RunGameTimerSubsystem.cpp",
+                "type": "file"
+              },
+              {
+                "name": "RunGameTimerSubsystem.h",
+                "type": "file"
+              },
+              {
+                "name": "State",
+                "type": "directory",
+                "children": [
+                  {
+                    "name": "PlayerRuntimeState.cpp",
+                    "type": "file"
+                  },
+                  {
+                    "name": "PlayerRuntimeState.h",
+                    "type": "file"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "RunGame.Target.cs",
+        "type": "file"
+      },
+      {
+        "name": "RunGameEditor.Target.cs",
+        "type": "file"
+      }
+    ]
+  }
+]
