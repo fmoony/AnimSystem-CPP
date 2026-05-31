@@ -1,0 +1,23 @@
+# Unreal Engine
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+Build/
+*.sln
+*.suo
+*.xcodeproj
+*.xcworkspace
+
+# VS Code / IDE
+.vs/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp
+%TEMP%/
