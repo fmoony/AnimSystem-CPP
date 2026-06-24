@@ -13,14 +13,6 @@ class UCharacterStateComponent;
 class ULocomotionMoverComponent;
 class UCharacterEventBus;
 
-/** 脚步侧 Footstep side */
-UENUM()
-enum class EFootstepSide : uint8
-{
-	Left,
-	Right
-};
-
 /**
  * PoseSearch 动画实例基类 PoseSearch animation instance base
  *

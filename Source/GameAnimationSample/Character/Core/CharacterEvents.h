@@ -28,8 +28,7 @@ struct FLandEvent
 /** 脚步事件 Footstep event（由 AnimNotify 触发） */
 struct FFootstepEvent
 {
-	enum class ESide : uint8 { Left, Right };
-	ESide Side = ESide::Left;
+	EFootstepSide Side = EFootstepSide::Left;
 };
 
 // ── Traversal 越障 ────────────────────────────────────

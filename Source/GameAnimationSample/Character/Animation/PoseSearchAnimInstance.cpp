@@ -111,8 +111,6 @@ void UPoseSearchAnimInstance::NotifyFootstep(EFootstepSide Side)
 {
 	if (EventBus)
 	{
-		EventBus->PublishFootstep(Side == EFootstepSide::Left
-			? FFootstepEvent::ESide::Left
-			: FFootstepEvent::ESide::Right);
+		EventBus->PublishFootstep(Side);
 	}
 }

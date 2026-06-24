@@ -11,6 +11,8 @@ class UCharacterEventBus;
 class UCharacterStateComponent;
 class UCharacterInputComponent;
 class ULocomotionMoverComponent;
+class UTraversalComponent;
+class UFoleyComponent;
 
 /**
  * 移动角色 Locomotion character
@@ -44,6 +46,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Locomotion")
 	ULocomotionMoverComponent* GetMoverComponent() const { return MoverComponent; }
 
+	/** 获取越障组件 Get the traversal component */
+	UFUNCTION(BlueprintCallable, Category = "Locomotion")
+	UTraversalComponent* GetTraversalComponent() const { return TraversalComponent; }
+
+	/** 获取音效组件 Get the foley component */
+	UFUNCTION(BlueprintCallable, Category = "Locomotion")
+	UFoleyComponent* GetFoleyComponent() const { return FoleyComponent; }
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
@@ -60,4 +70,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Locomotion")
 	TObjectPtr<ULocomotionMoverComponent> MoverComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Locomotion")
+	TObjectPtr<UTraversalComponent> TraversalComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Locomotion")
+	TObjectPtr<UFoleyComponent> FoleyComponent;
 };

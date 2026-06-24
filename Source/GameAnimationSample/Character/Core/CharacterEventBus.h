@@ -60,7 +60,7 @@ public:
 		Publish(FLandEvent{ ImpactForce, LandingGait });
 	}
 
-	void PublishFootstep(FFootstepEvent::ESide Side)
+	void PublishFootstep(EFootstepSide Side)
 	{
 		Publish(FFootstepEvent{ Side });
 	}

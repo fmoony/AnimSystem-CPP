@@ -6,6 +6,8 @@
 #include "Character/State/CharacterStateComponent.h"
 #include "Character/Input/CharacterInputComponent.h"
 #include "Character/Movement/LocomotionMoverComponent.h"
+#include "Character/Traversal/TraversalComponent.h"
+#include "Character/Foley/FoleyComponent.h"
 
 ALocomotionCharacter::ALocomotionCharacter()
 {
@@ -24,6 +26,12 @@ ALocomotionCharacter::ALocomotionCharacter()
 	// MoverComponent — 依赖 StateComponent Depends on StateComponent
 	MoverComponent = CreateDefaultSubobject<ULocomotionMoverComponent>(TEXT("MoverComponent"));
 	MoverComponent->bAutoActivate = true;
+
+	// TraversalComponent — 依赖 EventBus + StateComponent
+	TraversalComponent = CreateDefaultSubobject<UTraversalComponent>(TEXT("TraversalComponent"));
+
+	// FoleyComponent — 依赖 EventBus + StateComponent
+	FoleyComponent = CreateDefaultSubobject<UFoleyComponent>(TEXT("FoleyComponent"));
 }
 
 void ALocomotionCharacter::BeginPlay()

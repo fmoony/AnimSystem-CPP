@@ -66,6 +66,14 @@ enum class EMovementDirection : uint8
 
 // ── Traversal 越障 ────────────────────────────────────
 
+/** 脚步侧 Footstep side */
+UENUM()
+enum class EFootstepSide : uint8
+{
+	Left,
+	Right
+};
+
 /** 越障动作类型 Vault / Mantle / Hurdle / Climb / Catch */
 UENUM(BlueprintType)
 enum class ETraversalActionType : uint8
