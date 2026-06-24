@@ -1,14 +1,19 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// 角色状态组件实现 Character state component implementation
 
 #include "Character/State/CharacterStateComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-// ── Speed thresholds ─────────────────────────────────
-static constexpr float WalkSpeedThreshold  = 10.f;   // > 此值为 Locomotion
-static constexpr float RunSpeedThreshold   = 200.f;  // > 此值为 Run
-static constexpr float SprintSpeedThreshold = 500.f; // > 此值为 Sprint
+// ── Speed Thresholds 速度阈值 ──────────────────────────
+
+// 超过此值为 Locomotion Above = Locomotion
+static constexpr float WalkSpeedThreshold  = 10.f;
+// 超过此值为 Run Above = Run
+static constexpr float RunSpeedThreshold   = 200.f;
+// 超过此值为 Sprint Above = Sprint
+static constexpr float SprintSpeedThreshold = 500.f;
 
 UCharacterStateComponent::UCharacterStateComponent()
 {
@@ -25,13 +30,12 @@ void UCharacterStateComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProper
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	// 仅在状态变化时复制（COND_None + FCharacterStateSnapshot::operator!=）
+	// 仅在状态变化时复制 Replicate only when state changes
 	DOREPLIFETIME_CONDITION(UCharacterStateComponent, StateSnapshot, COND_None);
 }
 
-// ─────────────────────────────────────────────────────
-// 服务端权威更新
-// ─────────────────────────────────────────────────────
+// ── UpdateState 服务端权威更新 ─────────────────────────
+
 void UCharacterStateComponent::UpdateState(const FCharacterInputData& Input,
 										   const FVector& Velocity,
 										   bool bIsOnGround)
@@ -41,7 +45,7 @@ void UCharacterStateComponent::UpdateState(const FCharacterInputData& Input,
 	const float Speed = Velocity.Size2D();
 	const bool bHasInput = Input.HasMovementInput();
 
-	// ── 判定 ──────────────────────────────────────────
+	// 判定当前状态 Determine current state
 	const EGait NewGait = DetermineGait(Input, Speed, bIsOnGround);
 	const EStance NewStance = DetermineStance(Input.bCrouchToggled, StateSnapshot.Stance);
 	const EMovementState NewMovementState = DetermineMovementState(Speed, bIsOnGround, false);
@@ -49,7 +53,7 @@ void UCharacterStateComponent::UpdateState(const FCharacterInputData& Input,
 		? ERotationMode::LookingDirection
 		: ERotationMode::VelocityDirection;
 
-	// ── 方向量化（本地 RuntimeData）───────────────────
+	// 方向量化 Direction quantization（本地 RuntimeData）
 	if (bHasInput && Speed > WalkSpeedThreshold)
 	{
 		AActor* Owner = GetOwner();
@@ -57,7 +61,7 @@ void UCharacterStateComponent::UpdateState(const FCharacterInputData& Input,
 		CurrentDirection = QuantizeDirection(Velocity.GetSafeNormal2D(), ActorRot);
 	}
 
-	// ── 构建快照，比较后决定是否复制 ──────────────────
+	// 构建快照，比较后决定是否复制 Build snapshot, compare, replicate if changed
 	FCharacterStateSnapshot NewSnapshot;
 	NewSnapshot.Gait = NewGait;
 	NewSnapshot.Stance = NewStance;
@@ -72,15 +76,13 @@ void UCharacterStateComponent::UpdateState(const FCharacterInputData& Input,
 	}
 }
 
-// ─────────────────────────────────────────────────────
-// 客户端本地预测
-// ─────────────────────────────────────────────────────
+// ── LocalPredict 客户端本地预测 ────────────────────────
+
 void UCharacterStateComponent::LocalPredict(const FCharacterInputData& Input,
 											const FVector& Velocity,
 											bool bIsOnGround)
 {
 	const float Speed = Velocity.Size2D();
-	const bool bHasInput = Input.HasMovementInput();
 	const AActor* Owner = GetOwner();
 	const FRotator ActorRot = Owner ? Owner->GetActorRotation() : FRotator::ZeroRotator;
 
@@ -97,67 +99,63 @@ void UCharacterStateComponent::LocalPredict(const FCharacterInputData& Input,
 		: ERotationMode::VelocityDirection;
 	Predicted.Speed = Speed;
 
+	// 仅预测值变化时广播 Broadcast only when prediction differs
 	if (Predicted != StateSnapshot)
 	{
 		StateSnapshot = Predicted;
-		CurrentDirection = bHasInput ? QuantizeDirection(Velocity.GetSafeNormal2D(), ActorRot) : CurrentDirection;
+		CurrentDirection = Input.HasMovementInput()
+			? QuantizeDirection(Velocity.GetSafeNormal2D(), ActorRot)
+			: CurrentDirection;
 		OnStateChanged.Broadcast(StateSnapshot);
 	}
 
 	PreviousStance = NewStance;
 }
 
-// ─────────────────────────────────────────────────────
-// 客户端收到复制
-// ─────────────────────────────────────────────────────
+// ── OnRep_StateSnapshot 客户端收到复制 ─────────────────
+
 void UCharacterStateComponent::OnRep_StateSnapshot()
 {
 	OnStateChanged.Broadcast(StateSnapshot);
 }
 
-// ─────────────────────────────────────────────────────
-// 静态判定 — Gait
-// ─────────────────────────────────────────────────────
+// ── DetermineGait 步态判定 静态纯函数 ──────────────────
+
 EGait UCharacterStateComponent::DetermineGait(const FCharacterInputData& Input,
 											  float Speed,
 											  bool bIsOnGround)
 {
-	if (!bIsOnGround) return EGait::Run; // 空中保持 Run
+	// 空中保持 Run Keep Run while airborne
+	if (!bIsOnGround) return EGait::Run;
 
+	// 按住 Sprint 且速度足够 Sprint held and fast enough
 	if (Input.bSprintHeld && Speed > SprintSpeedThreshold)
 	{
 		return EGait::Sprint;
 	}
 
+	// 按住 Walk 强制步行 Walk held forces walk
 	if (Input.bWalkHeld)
 	{
 		return EGait::Walk;
 	}
 
-	// 默认按速度判定
-	if (Speed < WalkSpeedThreshold)
-	{
-		return EGait::Walk;
-	}
-	if (Speed < SprintSpeedThreshold)
-	{
-		return EGait::Run;
-	}
+	// 默认按速度判定 Default: speed-based
+	if (Speed < WalkSpeedThreshold) return EGait::Walk;
+	if (Speed < SprintSpeedThreshold) return EGait::Run;
 	return EGait::Sprint;
 }
 
-// ─────────────────────────────────────────────────────
-// 静态判定 — Stance
-// ─────────────────────────────────────────────────────
+// ── DetermineStance 站姿判定 静态纯函数 ────────────────
+
 EStance UCharacterStateComponent::DetermineStance(bool bCrouchToggled, EStance Current)
 {
 	if (!bCrouchToggled) return Current;
 	return (Current == EStance::Stand) ? EStance::Crouch : EStance::Stand;
 }
 
-// ─────────────────────────────────────────────────────
-// 静态判定 — MovementState
-// ─────────────────────────────────────────────────────
+// ── DetermineMovementState 运动状态判定 静态纯函数 ─────
+
 EMovementState UCharacterStateComponent::DetermineMovementState(float Speed,
 																bool bIsOnGround,
 																bool bIsTraversing)
@@ -167,9 +165,8 @@ EMovementState UCharacterStateComponent::DetermineMovementState(float Speed,
 	return (Speed > WalkSpeedThreshold) ? EMovementState::Locomotion : EMovementState::Idle;
 }
 
-// ─────────────────────────────────────────────────────
-// 静态判定 — 速度向量 → 12方向
-// ─────────────────────────────────────────────────────
+// ── QuantizeDirection 速度向量→12方向 静态纯函数 ───────
+
 EMovementDirection UCharacterStateComponent::QuantizeDirection(const FVector& Velocity2D,
 																const FRotator& ActorRotation)
 {
@@ -178,13 +175,12 @@ EMovementDirection UCharacterStateComponent::QuantizeDirection(const FVector& Ve
 		return EMovementDirection::F;
 	}
 
-	// 转到角色本地空间
+	// 转到角色本地空间 Transform to local space
 	const FVector LocalVel = ActorRotation.UnrotateVector(Velocity2D);
-	const float AngleRad = FMath::Atan2(LocalVel.Y, LocalVel.X); // -PI..PI
+	const float AngleRad = FMath::Atan2(LocalVel.Y, LocalVel.X);
 	const float AngleDeg = FMath::RadiansToDegrees(AngleRad);
 
-	// 12 扇区，每扇 30°
-	// F=0°, FL=30°, L=60°, BL=90° → 150°, B=180°, BR=-150°...RR=-30°
+	// 12 扇区，每扇 30° 12 sectors, 30° each
 	if (AngleDeg > 165.f || AngleDeg <= -165.f) return EMovementDirection::B;
 	if (AngleDeg > 135.f) return EMovementDirection::BL;
 	if (AngleDeg > 105.f) return EMovementDirection::L;

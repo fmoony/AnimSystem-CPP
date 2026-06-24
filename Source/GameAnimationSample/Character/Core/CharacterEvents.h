@@ -1,40 +1,40 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// 瞬时事件结构体 Instantaneous event structs — routed via EventBus
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Character/Core/CharacterEnums.h"
 
-// ─────────────────────────────────────────────────────
-// 瞬时事件 — 一次性触发，通过 EventBus 路由
-//
-// 设计约束：
-//   - 纯数据 struct，不继承 UObject
-//   - 不持有状态，不追踪历史
-//   - 仅在事件发生的帧有效
-// ─────────────────────────────────────────────────────
+// ── Jump 跳跃 ─────────────────────────────────────────
 
-// ── 跳跃 ────────────────────────────────────────────
+/** 跳跃事件 Jump event */
 struct FJumpEvent
 {
 	FVector LaunchVelocity = FVector::ZeroVector;
 };
 
-// ── 落地 ────────────────────────────────────────────
+// ── Land 落地 ─────────────────────────────────────────
+
+/** 落地事件 Land event */
 struct FLandEvent
 {
 	float ImpactForce = 0.f;
 	EGait  LandingGait = EGait::Run;
 };
 
-// ── 脚步（由 AnimNotify 在动画帧触发）───────────────
+// ── Footstep 脚步 ─────────────────────────────────────
+
+/** 脚步事件 Footstep event（由 AnimNotify 触发） */
 struct FFootstepEvent
 {
 	enum class ESide : uint8 { Left, Right };
 	ESide Side = ESide::Left;
 };
 
-// ── 越障 ────────────────────────────────────────────
+// ── Traversal 越障 ────────────────────────────────────
+
+/** 越障事件 Traversal event */
 struct FTraversalEvent
 {
 	enum class EPhase : uint8 { Started, Completed, Interrupted };
@@ -43,7 +43,9 @@ struct FTraversalEvent
 	FVector TargetLocation = FVector::ZeroVector;
 };
 
-// ── 受击 ────────────────────────────────────────────
+// ── Hit 受击 ──────────────────────────────────────────
+
+/** 受击事件 Hit event */
 struct FHitEvent
 {
 	AActor* Instigator = nullptr;
@@ -52,7 +54,9 @@ struct FHitEvent
 	float   Damage = 0.f;
 };
 
-// ── 武器开火 ────────────────────────────────────────
+// ── WeaponFire 开火 ───────────────────────────────────
+
+/** 武器开火事件 Weapon fire event */
 struct FWeaponFireEvent
 {
 	FVector  MuzzleLocation = FVector::ZeroVector;

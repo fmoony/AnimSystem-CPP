@@ -1,4 +1,5 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// 输入组件 — EnhancedInput 绑定 Input component — EnhancedInput binding
 
 #pragma once
 
@@ -13,12 +14,12 @@ class UCharacterStateComponent;
 class ACharacter;
 struct FInputActionValue;
 
-// ─────────────────────────────────────────────────────
-// 输入组件 — EnhancedInput → StateComp + MoverComp（直接调用）
-//
-// 不经过 EventBus。高频核心路径，直接调用更高效。
-// ─────────────────────────────────────────────────────
-
+/**
+ * 输入组件 Input component
+ *
+ * EnhancedInput → StateComp + MoverComp（直接调用，不经过 EventBus）。
+ * 高频核心路径，直接调用更高效。
+ */
 UCLASS(ClassGroup=(Locomotion), meta=(BlueprintSpawnableComponent))
 class UCharacterInputComponent : public UActorComponent
 {
@@ -27,7 +28,8 @@ class UCharacterInputComponent : public UActorComponent
 public:
 	UCharacterInputComponent();
 
-	// ── 配置（在蓝图中设置）───────────────────────────
+	// ── Config 蓝图配置 ────────────────────────────────
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<UInputMappingContext> InputMappingContext;
 
@@ -64,7 +66,8 @@ public:
 		FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	// ── Enhanced Input 绑定 ───────────────────────────
+	// ── EnhancedInput 绑定 EnhancedInput binding ────────
+
 	void BindActions();
 	void UnbindActions();
 
@@ -80,14 +83,16 @@ private:
 	void OnStrafeCompleted(const FInputActionValue& Value);
 	void OnTraverseStarted(const FInputActionValue& Value);
 
-	// ── 网络 RPC ──────────────────────────────────────
+	// ── Network 网络 RPC ───────────────────────────────
+
+	/** 客户端→服务端 发送输入 Client → server send input */
 	UFUNCTION(Server, Unreliable)
 	void Server_SendInput(const FCharacterInputData& Input);
 
-	// ── 累积的输入数据 ────────────────────────────────
+	// ── State 累积的输入 ────────────────────────────────
+
 	FCharacterInputData PendingInput;
 
-	// ── 缓存的组件引用（BeginPlay 时获取）─────────────
 	UPROPERTY()
 	TObjectPtr<UCharacterStateComponent> StateComponent;
 

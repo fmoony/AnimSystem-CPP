@@ -1,4 +1,5 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// 标准化输入数据 Standardized input data struct
 
 #pragma once
 
@@ -6,26 +7,27 @@
 #include "Character/Core/CharacterEnums.h"
 #include "CharacterInputData.generated.h"
 
-// ─────────────────────────────────────────────────────
-// 标准化输入 — EnhancedInput → InputComponent → StateComponent
-//
-// 所有布尔输入使用 "Pressed/Released/Toggled" 语义，
-// 由 InputComponent 每帧消费后清零瞬时值。
-// ─────────────────────────────────────────────────────
-
+/**
+ * 标准化输入 Standardized input
+ *
+ * EnhancedInput → InputComponent 每帧累积到此结构体。
+ * 瞬时动作（Jump/Crouch/Traverse）在当前帧消费后由 ResetInstants() 清零。
+ */
 USTRUCT(BlueprintType)
 struct FCharacterInputData
 {
 	GENERATED_BODY()
 
-	// ── 模拟量（持续）─────────────────────────────────
-	UPROPERTY()
-	FVector2D MoveInput = FVector2D::ZeroVector;	// WASD / 左摇杆
+	// ── 模拟量持续输入 Analog continuous ────────────────
 
 	UPROPERTY()
-	FVector2D LookInput = FVector2D::ZeroVector;	// 鼠标 / 右摇杆
+	FVector2D MoveInput = FVector2D::ZeroVector;
 
-	// ── Toggle 状态（保持）───────────────────────────
+	UPROPERTY()
+	FVector2D LookInput = FVector2D::ZeroVector;
+
+	// ── 保持状态 Toggle holds ───────────────────────────
+
 	UPROPERTY()
 	bool bSprintHeld = false;
 
@@ -35,7 +37,8 @@ struct FCharacterInputData
 	UPROPERTY()
 	bool bStrafeHeld = false;
 
-	// ── 瞬时动作（当前帧消费，下帧清零）───────────────
+	// ── 瞬时动作 Instant actions（消费后清零）───────────
+
 	UPROPERTY()
 	bool bJumpPressed = false;
 
@@ -45,7 +48,7 @@ struct FCharacterInputData
 	UPROPERTY()
 	bool bTraversePressed = false;
 
-	// ── 工具方法 ─────────────────────────────────────
+	/** 清除瞬时输入 Clear instant inputs（每帧末调用） */
 	void ResetInstants()
 	{
 		bJumpPressed = false;
@@ -53,11 +56,9 @@ struct FCharacterInputData
 		bTraversePressed = false;
 	}
 
+	/** 是否有移动输入 Has movement input */
 	bool HasMovementInput() const
 	{
 		return !MoveInput.IsNearlyZero();
 	}
-
-	// ── 从速度向量量化 12 方向（纯函数）───────────────
-	static EMovementDirection QuantizeDirection(const FVector& Velocity2D, const FRotator& ActorRotation);
 };

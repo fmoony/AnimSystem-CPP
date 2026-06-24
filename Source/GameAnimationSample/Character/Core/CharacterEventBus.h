@@ -1,4 +1,5 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// 瞬时事件总线 — 纯路由不持有状态 Instantaneous event bus — pure routing, zero state
 
 #pragma once
 
@@ -7,27 +8,22 @@
 #include "Character/Core/CharacterEvents.h"
 #include "CharacterEventBus.generated.h"
 
-// ─────────────────────────────────────────────────────
-// 瞬时事件总线 — 纯路由，不持有任何游戏状态
-//
-// 硬约束：
-//   ✅ Subscribe / Unsubscribe / Publish
-//   ❌ 不持有状态、不缓存事件、不 Tick、不复制、不依赖其他组件
-//   ❌ 不知道事件的具体语义（纯模板转发）
-//
-// 生命周期安全：
-//   Subscribe 要求传入 UObject* Owner，
-//   内部使用 AddWeakLambda，Owner 销毁后自动解绑。
-// ─────────────────────────────────────────────────────
-
+/**
+ * 瞬时事件总线 Instantaneous event bus
+ *
+ * 职责：Subscribe / Unsubscribe / Publish。
+ * 硬约束：不持有游戏状态、不缓存事件、不 Tick、不复制、不依赖其他组件。
+ * 生命周期安全：Subscribe 传入 UObject* Owner，内部 AddWeakLambda 自动解绑。
+ */
 UCLASS()
 class UCharacterEventBus : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:
-	// ── 订阅 ──────────────────────────────────────────
-	// Owner 用于生命周期绑定，Owner 销毁后自动解绑
+	// ── Subscribe 订阅 ──────────────────────────────────
+
+	/** 订阅事件 Subscribe to event（Owner 销毁后自动解绑 auto-detach on owner destroy） */
 	template<typename TEvent>
 	FDelegateHandle Subscribe(UObject* Owner, TFunction<void(const TEvent&)> Callback)
 	{
@@ -35,21 +31,25 @@ public:
 		return Dispatcher.AddWeakLambda(Owner, MoveTemp(Callback));
 	}
 
-	// ── 取消订阅 ──────────────────────────────────────
+	// ── Unsubscribe 取消订阅 ────────────────────────────
+
 	template<typename TEvent>
 	void Unsubscribe(FDelegateHandle Handle)
 	{
 		GetDispatcher<TEvent>().Remove(Handle);
 	}
 
-	// ── 发布（纯转发，不存储事件）─────────────────────
+	// ── Publish 发布 ────────────────────────────────────
+
+	/** 发布事件 Publish event（纯转发，不存储） */
 	template<typename TEvent>
 	void Publish(const TEvent& Event)
 	{
 		GetDispatcher<TEvent>().Broadcast(Event);
 	}
 
-	// ── 便捷方法（常用事件提供显式重载，方便蓝图/调试）──
+	// ── Convenience 便捷方法 ────────────────────────────
+
 	void PublishJump(const FVector& LaunchVelocity)
 	{
 		Publish(FJumpEvent{ LaunchVelocity });
@@ -81,7 +81,8 @@ public:
 	}
 
 private:
-	// ── 每个事件类型独立一个委托，实例级（非 static）──
+	// ── Internal 内部实现 ───────────────────────────────
+
 	template<typename TEvent>
 	TMulticastDelegate<void(const TEvent&)>& GetDispatcher()
 	{
@@ -109,5 +110,7 @@ private:
 	};
 
 	static int32 NextTypeIndex;
+
+	// 每个 Bus 实例独立的委托池 Per-instance delegate pool（非 static）
 	TArray<TSharedPtr<IDelegateWrapperBase>> DispatcherPool;
 };
