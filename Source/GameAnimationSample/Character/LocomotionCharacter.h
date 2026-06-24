@@ -13,6 +13,8 @@ class UCharacterInputComponent;
 class ULocomotionMoverComponent;
 class UTraversalComponent;
 class UFoleyComponent;
+class USpringArmComponent;
+class UCharacterCameraComponent;
 
 /**
  * 移动角色 Locomotion character
@@ -54,6 +56,14 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Locomotion")
 	UFoleyComponent* GetFoleyComponent() const { return FoleyComponent; }
 
+	/** 获取弹簧臂 Get the camera boom */
+	UFUNCTION(BlueprintCallable, Category = "Locomotion")
+	USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+
+	/** 获取跟随相机 Get the follow camera */
+	UFUNCTION(BlueprintCallable, Category = "Locomotion")
+	UCharacterCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
@@ -76,4 +86,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Locomotion")
 	TObjectPtr<UFoleyComponent> FoleyComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<USpringArmComponent> CameraBoom;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UCharacterCameraComponent> FollowCamera;
 };

@@ -8,6 +8,8 @@
 #include "Character/Movement/LocomotionMoverComponent.h"
 #include "Character/Traversal/TraversalComponent.h"
 #include "Character/Foley/FoleyComponent.h"
+#include "Character/Camera/CharacterCameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 ALocomotionCharacter::ALocomotionCharacter()
 {
@@ -32,6 +34,17 @@ ALocomotionCharacter::ALocomotionCharacter()
 
 	// FoleyComponent — 依赖 EventBus + StateComponent
 	FoleyComponent = CreateDefaultSubobject<UFoleyComponent>(TEXT("FoleyComponent"));
+
+	// CameraBoom — 弹簧臂 Spring arm（SceneComponent，挂 RootComponent 下）
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	CameraBoom->SetupAttachment(RootComponent);
+	CameraBoom->TargetArmLength = 300.f;
+	CameraBoom->bUsePawnControlRotation = true;
+
+	// FollowCamera — 跟随相机 Follow camera（挂 SpringArm 下）
+	FollowCamera = CreateDefaultSubobject<UCharacterCameraComponent>(TEXT("FollowCamera"));
+	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+	FollowCamera->bUsePawnControlRotation = false;
 }
 
 void ALocomotionCharacter::BeginPlay()
