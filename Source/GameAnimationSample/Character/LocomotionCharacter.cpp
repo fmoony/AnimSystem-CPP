@@ -4,6 +4,7 @@
 #include "Character/Core/CharacterEventBus.h"
 #include "Character/State/CharacterStateComponent.h"
 #include "Character/Input/CharacterInputComponent.h"
+#include "Character/Movement/LocomotionMoverComponent.h"
 
 ALocomotionCharacter::ALocomotionCharacter()
 {
@@ -18,6 +19,10 @@ ALocomotionCharacter::ALocomotionCharacter()
 	// ── 创建 CharInputComponent（依赖 StateComponent）──────
 	CharInputComponent = CreateDefaultSubobject<UCharacterInputComponent>(TEXT("CharInputComponent"));
 	CharInputComponent->bAutoActivate = true;
+
+	// ── 创建 MoverComponent（依赖 StateComponent）─────────
+	MoverComponent = CreateDefaultSubobject<ULocomotionMoverComponent>(TEXT("MoverComponent"));
+	MoverComponent->bAutoActivate = true;
 }
 
 void ALocomotionCharacter::BeginPlay()

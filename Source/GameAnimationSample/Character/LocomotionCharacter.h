@@ -9,6 +9,7 @@
 class UCharacterEventBus;
 class UCharacterStateComponent;
 class UCharacterInputComponent;
+class ULocomotionMoverComponent;
 
 // ─────────────────────────────────────────────────────
 // LocomotionCharacter — 组件组装根
@@ -35,6 +36,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Locomotion")
 	UCharacterInputComponent* GetCharInputComponent() const { return CharInputComponent; }
 
+	UFUNCTION(BlueprintCallable, Category = "Locomotion")
+	ULocomotionMoverComponent* GetMoverComponent() const { return MoverComponent; }
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
@@ -48,4 +52,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Locomotion")
 	TObjectPtr<UCharacterInputComponent> CharInputComponent;
+
+	UPROPERTY(VisibleAnywhere, Category = "Locomotion")
+	TObjectPtr<ULocomotionMoverComponent> MoverComponent;
 };
