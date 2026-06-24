@@ -1,4 +1,5 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// 移动角色 — 组件组装根 Locomotion character — component assembly root
 
 #pragma once
 
@@ -11,13 +12,12 @@ class UCharacterStateComponent;
 class UCharacterInputComponent;
 class ULocomotionMoverComponent;
 
-// ─────────────────────────────────────────────────────
-// LocomotionCharacter — 组件组装根
-//
-// 在构造函数中创建 EventBus + StateComponent + InputComponent。
-// MoverComponent 使用标准 UCharacterMovementComponent（后续替换为 UMoverComponent）。
-// ─────────────────────────────────────────────────────
-
+/**
+ * 移动角色 Locomotion character
+ *
+ * 在构造函数中创建 EventBus + StateComponent + InputComponent + MoverComponent。
+ * 各组件通过 EventBus（瞬时事件）和 OnStateChanged（状态变化）通信。
+ */
 UCLASS()
 class ALocomotionCharacter : public ACharacter
 {
@@ -26,16 +26,21 @@ class ALocomotionCharacter : public ACharacter
 public:
 	ALocomotionCharacter();
 
-	// ── 组件访问器 ────────────────────────────────────
+	// ── Component Accessors 组件访问器 ──────────────────
+
+	/** 获取事件总线 Get the event bus */
 	UFUNCTION(BlueprintCallable, Category = "Locomotion")
 	UCharacterEventBus* GetEventBus() const { return EventBus; }
 
+	/** 获取状态组件 Get the state component */
 	UFUNCTION(BlueprintCallable, Category = "Locomotion")
 	UCharacterStateComponent* GetStateComponent() const { return StateComponent; }
 
+	/** 获取输入组件 Get the input component */
 	UFUNCTION(BlueprintCallable, Category = "Locomotion")
 	UCharacterInputComponent* GetCharInputComponent() const { return CharInputComponent; }
 
+	/** 获取移动组件 Get the mover component */
 	UFUNCTION(BlueprintCallable, Category = "Locomotion")
 	ULocomotionMoverComponent* GetMoverComponent() const { return MoverComponent; }
 

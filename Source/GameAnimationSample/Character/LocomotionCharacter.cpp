@@ -1,4 +1,5 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// 移动角色实现 Locomotion character implementation
 
 #include "Character/LocomotionCharacter.h"
 #include "Character/Core/CharacterEventBus.h"
@@ -10,17 +11,17 @@ ALocomotionCharacter::ALocomotionCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	// ── 创建 EventBus（零依赖，最先创建）───────────────
+	// EventBus — 零依赖，最先创建 Zero dependencies, created first
 	EventBus = CreateDefaultSubobject<UCharacterEventBus>(TEXT("EventBus"));
 
-	// ── 创建 StateComponent（依赖 Core）────────────────
+	// StateComponent — 依赖 Core Depends on Core
 	StateComponent = CreateDefaultSubobject<UCharacterStateComponent>(TEXT("StateComponent"));
 
-	// ── 创建 CharInputComponent（依赖 StateComponent）──────
+	// CharInputComponent — 依赖 StateComponent Depends on StateComponent
 	CharInputComponent = CreateDefaultSubobject<UCharacterInputComponent>(TEXT("CharInputComponent"));
 	CharInputComponent->bAutoActivate = true;
 
-	// ── 创建 MoverComponent（依赖 StateComponent）─────────
+	// MoverComponent — 依赖 StateComponent Depends on StateComponent
 	MoverComponent = CreateDefaultSubobject<ULocomotionMoverComponent>(TEXT("MoverComponent"));
 	MoverComponent->bAutoActivate = true;
 }
@@ -35,5 +36,5 @@ void ALocomotionCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	// EnhancedInput 绑定由 UCharacterInputComponent::BeginPlay 处理
-	// （它需要访问 EnhancedInputSubsystem，在 SetupPlayerInputComponent 之后）
+	// EnhancedInput binding handled by UCharacterInputComponent::BeginPlay
 }

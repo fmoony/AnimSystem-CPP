@@ -1,4 +1,5 @@
 // Copyright 2024 Locomotion System. All Rights Reserved.
+// PoseSearch 动画实例 PoseSearch animation instance — C++ ABP base class
 
 #pragma once
 
@@ -12,6 +13,7 @@ class UCharacterStateComponent;
 class ULocomotionMoverComponent;
 class UCharacterEventBus;
 
+/** 脚步侧 Footstep side */
 UENUM()
 enum class EFootstepSide : uint8
 {
@@ -19,23 +21,12 @@ enum class EFootstepSide : uint8
 	Right
 };
 
-// ─────────────────────────────────────────────────────
-// PoseSearch AnimInstance C++ 基类
-//
-// 数据流（每帧）：
-//   NativeUpdateAnimation()
-//     ├─ 直接读 MoverComponent  → Speed, Velocity, Direction, Trajectory
-//     ├─ 直接读 StateComponent  → Gait, Stance, MovementState, RotationMode
-//     └─ 写入 BlueprintReadOnly 属性 → AnimGraph PoseSearch/Warping 节点消费
-//
-// 事件响应（低频）：
-//   OnStateChanged → 切换 PoseSearch Database
-//
-// 不负责：
-//   - PoseSearch 节点逻辑（在 ABP 编辑器中配置）
-//   - 最终动画输出（AnimGraph）
-// ─────────────────────────────────────────────────────
-
+/**
+ * PoseSearch 动画实例基类 PoseSearch animation instance base
+ *
+ * 每帧 NativeUpdateAnimation 直接读取 MoverComp（Speed/Velocity/Trajectory）
+ * 和 StateComp（Gait/Stance/Direction）。订阅 OnStateChanged 用于切换 DB。
+ */
 UCLASS()
 class UPoseSearchAnimInstance : public UAnimInstance
 {
@@ -44,7 +35,8 @@ class UPoseSearchAnimInstance : public UAnimInstance
 public:
 	UPoseSearchAnimInstance();
 
-	// ── AnimGraph 输入（每帧由 NativeUpdateAnimation 填充）─
+	// ── AnimGraph Inputs 动画图输入（每帧填充）──────────
+
 	UPROPERTY(BlueprintReadOnly, Category = "Locomotion|State")
 	FCharacterStateSnapshot CurrentState;
 
@@ -60,25 +52,31 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Locomotion|Runtime")
 	bool bIsOnGround = true;
 
-	// ── Trajectory（PoseSearch 查询核心输入）────────────
+	// ── Trajectory 轨迹（PoseSearch 查询核心输入）───────
+
 	UPROPERTY(BlueprintReadOnly, Category = "Locomotion|Trajectory")
 	TArray<FVector> FuturePositions;
 
 	UPROPERTY(BlueprintReadOnly, Category = "Locomotion|Trajectory")
 	TArray<FQuat> FutureRotations;
 
-	// ── Warping ─────────────────────────────────────────
+	// ── Warping 扭曲修正 ────────────────────────────────
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Locomotion|Warping")
 	float OrientationWarpingAlpha = 1.f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Locomotion|Warping")
 	float StrideWarpingAlpha = 1.f;
 
-	// ── Chooser 表引用（在 ABP 蓝图中配置）──────────────
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|PoseSearch")
-	TObjectPtr<UObject> DatabaseChooser; // UChooserTable* — forward declared as UObject for module decoupling
+	// ── Chooser 选择器表 ────────────────────────────────
 
-	// ── 脚步事件 ────────────────────────────────────────
+	/** PoseSearch 数据库选择器表 Database chooser table */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Locomotion|PoseSearch")
+	TObjectPtr<UObject> DatabaseChooser;
+
+	// ── Foley 音效 ──────────────────────────────────────
+
+	/** 通知脚步事件 Notify footstep event（由 AnimNotify 调用 called by anim notify） */
 	UFUNCTION(BlueprintCallable, Category = "Locomotion|Foley")
 	void NotifyFootstep(EFootstepSide Side);
 
