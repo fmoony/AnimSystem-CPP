@@ -10,6 +10,7 @@
 #include "Character/Foley/FoleyComponent.h"
 #include "Character/Camera/CharacterCameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 ALocomotionCharacter::ALocomotionCharacter()
 {
@@ -45,6 +46,15 @@ ALocomotionCharacter::ALocomotionCharacter()
 	FollowCamera = CreateDefaultSubobject<UCharacterCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
+
+	// CMC 配置 CharacterMovement config
+	if (UCharacterMovementComponent* CMC = GetCharacterMovement())
+	{
+		CMC->bOrientRotationToMovement = true;
+		CMC->RotationRate = FRotator(0.f, 360.f, 0.f);
+		CMC->bUseControllerDesiredRotation = false;
+		CMC->bUseFlatBaseForFloorChecks = true;
+	}
 }
 
 void ALocomotionCharacter::BeginPlay()

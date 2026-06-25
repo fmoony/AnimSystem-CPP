@@ -11,6 +11,7 @@
 class UInputAction;
 class UInputMappingContext;
 class UCharacterStateComponent;
+class ULocomotionMoverComponent;
 class ACharacter;
 struct FInputActionValue;
 
@@ -98,4 +99,7 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<ACharacter> OwnerCharacter;
+
+	UPROPERTY()
+	TObjectPtr<ULocomotionMoverComponent> MoverComponent;
 };

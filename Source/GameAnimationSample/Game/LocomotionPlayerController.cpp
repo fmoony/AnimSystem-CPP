@@ -7,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Engine/LocalPlayer.h"
+#include "Net/UnrealNetwork.h"
 #include "GameFramework/Pawn.h"
 
 ALocomotionPlayerController::ALocomotionPlayerController()
@@ -17,22 +18,23 @@ ALocomotionPlayerController::ALocomotionPlayerController()
 	bShowMouseCursor = false;
 	bEnableClickEvents = false;
 	bEnableTouchEvents = true;
-	DefaultMouseCursor = EMouseCursor::Default;
-	CurrentMouseCursor = EMouseCursor::None;
 }
 
 void ALocomotionPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// 绑定 IA_NextCharacter（Controller 层绑定，不随 Pawn 销毁）
-	// Bind IA_NextCharacter at Controller level — survives Pawn destruction
 	BindActions();
 }
 
 void ALocomotionPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
+}
+
+void ALocomotionPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ALocomotionPlayerController, CurrentCharacterIndex);
 }
 
 // ── BindActions 绑定切换角色输入 ──────────────────────
@@ -55,24 +57,29 @@ void ALocomotionPlayerController::BindActions()
 	}
 }
 
+// ── 客户端按下切换 → RPC 到服务端 ────────────────────
+
 void ALocomotionPlayerController::OnNextCharacter()
 {
-	SwitchToNextCharacter();
+	ServerSwitchCharacter();
 }
 
-// ── Tick 每帧缓存控制旋转 ────────────────────────────
+// ── Tick 每帧缓存控制旋转（仅本地）───────────────────
 
 void ALocomotionPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// 缓存控制旋转，角色切换时恢复 Cache control rotation for restore on switch
-	CachedControlRotation = GetControlRotation();
+	// 仅本地缓存控制旋转 Local-only rotation cache
+	if (IsLocalController())
+	{
+		CachedControlRotation = GetControlRotation();
+	}
 }
 
-// ── SwitchToNextCharacter 角色切换核心逻辑 ────────────
+// ── ServerSwitchCharacter 服务端权威实现 ──────────────
 
-void ALocomotionPlayerController::SwitchToNextCharacter()
+void ALocomotionPlayerController::ServerSwitchCharacter_Implementation()
 {
 	if (Characters.Num() == 0) return;
 
@@ -82,16 +89,16 @@ void ALocomotionPlayerController::SwitchToNextCharacter()
 		? PreviousPawn->GetActorTransform()
 		: FTransform::Identity;
 
-	// 循环索引 Wrap index
+	// 循环索引并复制到客户端 Wrap index and replicate to client
 	CurrentCharacterIndex = (CurrentCharacterIndex + 1) % Characters.Num();
 
-	// 销毁旧 Pawn Destroy old pawn
+	// 销毁旧 Pawn Destroy old pawn（服务端权威）
 	if (PreviousPawn)
 	{
 		PreviousPawn->Destroy();
 	}
 
-	// 生成新角色 Spawn new character
+	// 在服务端生成新角色 Spawn new character on server
 	ALocomotionCharacter* NewChar = GetWorld()->SpawnActor<ALocomotionCharacter>(
 		Characters[CurrentCharacterIndex],
 		SpawnTransform.GetLocation(),
@@ -99,13 +106,22 @@ void ALocomotionPlayerController::SwitchToNextCharacter()
 
 	if (NewChar)
 	{
-		// 控制新角色 Possess new character
+		// 服务端 Possess — 自动复制到客户端 Server possess — auto-replicates to client
 		Possess(NewChar);
+	}
+}
 
-		// 恢复控制旋转 Restore control rotation
+// ── OnPossess 客户端收到新 Pawn → 恢复旋转 + 平滑视角 ─
+
+void ALocomotionPlayerController::OnPossess(APawn* NewPawn)
+{
+	Super::OnPossess(NewPawn);
+
+	// 客户端表现：恢复控制旋转 + 平滑视角过渡
+	// Client-side: restore rotation + smooth view blend
+	if (IsLocalController() && NewPawn)
+	{
 		SetControlRotation(CachedControlRotation);
-
-		// 平滑切换视角 Set view target with blend for smooth transition
-		SetViewTargetWithBlend(NewChar, 0.2f);
+		SetViewTargetWithBlend(NewPawn, 0.2f);
 	}
 }

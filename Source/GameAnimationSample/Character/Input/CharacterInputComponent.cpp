@@ -3,6 +3,7 @@
 
 #include "Character/Input/CharacterInputComponent.h"
 #include "Character/State/CharacterStateComponent.h"
+#include "Character/Movement/LocomotionMoverComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
@@ -22,6 +23,7 @@ void UCharacterInputComponent::BeginPlay()
 
 	OwnerCharacter = Cast<ACharacter>(GetOwner());
 	StateComponent = GetOwner()->FindComponentByClass<UCharacterStateComponent>();
+	MoverComponent = GetOwner()->FindComponentByClass<ULocomotionMoverComponent>();
 
 	BindActions();
 }
@@ -117,6 +119,12 @@ void UCharacterInputComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	{
 		// 服务端（或单机）→ 直接权威判定 Server (or standalone) → direct authoritative
 		StateComponent->UpdateState(PendingInput, Velocity, bOnGround);
+	}
+
+	// 应用移动输入到 MoverComponent Apply move input via MoverComponent
+	if (MoverComponent)
+	{
+		MoverComponent->ApplyMoveInput(PendingInput.MoveInput);
 	}
 
 	// 清除瞬时输入 Reset instant inputs
